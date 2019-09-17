@@ -40,4 +40,5 @@ dependencies {
 
     //Material Styled Dialog
     implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+    implementation 'com.google.android.material:material:1.0.0'
 }

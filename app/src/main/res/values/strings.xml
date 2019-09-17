@@ -1,3 +1,52 @@
 <resources>
     <string name="app_name">Graduationproject</string>
+
+    <!-- Main menu Activity strings -->
+    <string name="main_menu_welcome">환영합니다 OOO님</string>
+    <string name="main_menu_logout">로그아웃</string>
+    <string name="main_menu_bs_dict">식물 정보 사전</string>
+    <string name="main_menu_bs_imagesearch">식물 이미지 검색</string>
+    <string name="main_menu_bs_recommend">선호 작물 추천</string>
+    <string name="main_menu_bs_recording">작물 관리</string>
+
+    <!-- Dictionary Activity strings -->
+    <string name="dictionary_name">식물 정보 사전</string>
+    <string name="dictionary_searchbar_hint">식물명, 예)해바라기</string>
+
+    <!-- Plant Recommend Activity strings -->
+    <string name="recommend_name">선호 작물 추천</string>
+
+    <!-- Image Search Activity strings -->
+    <string name="imagesearch_name">식물 이미지 검색</string>
+
+    <!-- Search Result Activity strings -->
+    <string name="searchresult_name">식물 정보</string>
+    <string name="searchresult_text_plantname">식물명: </string>
+    <string name="searchresult_text_botanical_name">학명: </string>
+    <string name="searchresult_text_botanical_kingdom">계: </string>
+    <string name="searchresult_text_botanical_division">문: </string>
+    <string name="searchresult_text_botanical_class">강: </string>
+    <string name="searchresult_text_botanical_order">문: </string>
+    <string name="searchresult_text_botanical_family">과: </string>
+    <string name="searchresult_text_botanical_genus">속: </string>
+    <string name="searchresult_text_flowering_time">개화 시기: </string>
+    <string name="searchresult_text_sowing_period">파종 시기: </string>
+    <string name="searchresult_text_origin">원산지: </string>
+
+    <string name="searchresult_text_requirements">원예 요구사항</string>
+    <string name="searchresult_text_size">크기 </string>
+    <string name="searchresult_text_max_width">최대 넓이: </string>
+    <string name="searchresult_text_min_width">최소 넓이: </string>
+    <string name="searchresult_text_max_height">최대 길이: </string>
+    <string name="searchresult_text_min_height">최소 길이: </string>
+    <string name="searchresult_text_difficulty">난이도: </string>
+    <string name="searchresult_text_max_temp">최대 온도: </string>
+    <string name="searchresult_text_min_temp">최소 온도: </string>
+    <string name="searchresult_text_light_amount">광량: </string>
+    <string name="searchresult_text_soil_type">토양: </string>
+    <string name="searchresult_text_soil_ph">산성도: </string>
+    <string name="searchresult_text_soil_drainage">배수도: </string>
+
+    <string name="searchresult_text_review">원예 후기</string>
+    <string name="searchresult_text_guide">원예 가이드 보기</string>
 </resources>

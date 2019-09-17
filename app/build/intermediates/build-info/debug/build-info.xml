@@ -6,23 +6,26 @@
     density="420dpi"
     format="10"
     plugin-version="3.4.2"
-    timestamp="1566208878663"
+    timestamp="1567660309071"
     token="5776730797896636821"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="3814" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="2877" />
     <task
         name="verifier"
-        duration="0" />
+        duration="49" />
 
+    <artifact
+        location="C:\Users\Administrator\AndroidStudioProjects\Graduationproject2\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+        type="SPLIT" />
     <artifact
         location="C:\Users\Administrator\AndroidStudioProjects\Graduationproject2\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
         type="SPLIT" />
@@ -57,16 +60,16 @@
         location="C:\Users\Administrator\AndroidStudioProjects\Graduationproject2\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
         type="SPLIT" />
     <artifact
-        location="C:\Users\Administrator\AndroidStudioProjects\Graduationproject2\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-        type="SPLIT" />
-    <artifact
         location="C:\Users\Administrator\AndroidStudioProjects\Graduationproject2\app\build\intermediates\instant-run-apk\debug\app-debug.apk"
         type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1566208878663"
+        timestamp="1567660309071"
         verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="C:\Users\Administrator\AndroidStudioProjects\Graduationproject2\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
         <artifact
             location="C:\Users\Administrator\AndroidStudioProjects\Graduationproject2\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
             type="SPLIT" />
@@ -99,9 +102,6 @@
             type="SPLIT" />
         <artifact
             location="C:\Users\Administrator\AndroidStudioProjects\Graduationproject2\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\Administrator\AndroidStudioProjects\Graduationproject2\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\Administrator\AndroidStudioProjects\Graduationproject2\app\build\intermediates\instant-run-apk\debug\app-debug.apk"

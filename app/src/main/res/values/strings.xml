@@ -49,4 +49,10 @@
 
     <string name="searchresult_text_review">원예 후기</string>
     <string name="searchresult_text_guide">원예 가이드 보기</string>
+
+    <!-- Gardening Guide Activity strings -->
+    <string name="gardening_guide_name">원예 가이드</string>
+
+    <!-- Listing plants Activity strings -->
+    <string name="listing_plants_name">원예 작물 관리</string>
 </resources>

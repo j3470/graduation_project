@@ -20,6 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true" >
+        <activity android:name="ga.project0511.graduationproject.listing_plants" />
+        <activity android:name="ga.project0511.graduationproject.GardeningGuide" />
         <activity android:name="ga.project0511.graduationproject.SearchResult" />
         <activity android:name="ga.project0511.graduationproject.ImageSearch" />
         <activity android:name="ga.project0511.graduationproject.plant_recommend" />

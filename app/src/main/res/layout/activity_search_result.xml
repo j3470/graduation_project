@@ -341,7 +341,7 @@
 
                 <Button
                     android:id="@+id/searchresult_button_guide"
-                    android:layout_width="165"
+                    android:layout_width="165dp"
                     android:layout_height="42dp"
                     android:text="@string/searchresult_text_guide"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -359,8 +359,8 @@
 
                 <LinearLayout
                     android:id="@+id/list_reviews"
-                    android:layout_width="300"
-                    android:layout_height="300"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="64dp"
                     android:layout_marginEnd="8dp"

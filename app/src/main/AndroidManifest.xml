@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ga.project0511.graduationproject">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".listing_plants"></activity>
+        <activity android:name=".listing_plants" />
         <activity android:name=".GardeningGuide" />
         <activity android:name=".SearchResult" />
         <activity android:name=".ImageSearch" />
         <activity android:name=".plant_recommend" />
         <activity android:name=".Dictionary" />
-        <activity android:name=".MainMenu" />
+        <activity android:name=".MainMenu" ></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,5 +25,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

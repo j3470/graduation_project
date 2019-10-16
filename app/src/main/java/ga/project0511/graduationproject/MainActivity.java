@@ -1,5 +1,6 @@
 package ga.project0511.graduationproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -24,7 +26,10 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
+
 public class MainActivity extends AppCompatActivity {
+
+    public static final int REQUEST_CODE_LOGIN = 101;
 
     TextView txt_create_account;
     MaterialEditText edt_login_id, edt_login_password;
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     IMyService iMyService;
+
 
     @Override
     protected void onStop() {
@@ -56,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginUser(edt_login_id.getText().toString(),
-                        edt_login_password.getText().toString());
+                loginUser(edt_login_id.getText().toString(), edt_login_password.getText().toString());
+                //Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                //startActivity(intent);
+
             }
         });
 
@@ -134,23 +142,25 @@ public class MainActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
                     @Override
-                    public void accept(String response) throws Exception {
+                    public void accept(String response) {
                         Toast.makeText(MainActivity.this, ""+response, Toast.LENGTH_SHORT).show();
                     }
                 }));
     }
 
-    private void loginUser(String id, String password) {
+    private boolean loginUser(String id, String password)  {
+
+
         if(TextUtils.isEmpty(id))
         {
             Toast.makeText(this, "ID cannot be null or empty", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
         if(TextUtils.isEmpty(password))
         {
             Toast.makeText(this, "Password cannot be null or empty", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
         compositeDisposable.add(iMyService.loginUser(id,password)
@@ -159,9 +169,41 @@ public class MainActivity extends AppCompatActivity {
         .subscribe(new Consumer<String>() {
             @Override
             public void accept(String response) throws Exception {
-                Toast.makeText(MainActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+                String success = "\"Login success\"";
+                String failed = "\"Wrong password\"";
+
+                // Toast.makeText(MainActivity.this, success, Toast.LENGTH_SHORT).show();
+
+                if(response.equals(failed))
+                    Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
+
+                if(response.equals(success)) {
+                    Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                    startActivityForResult(intent, REQUEST_CODE_LOGIN);
+                }
             }
         }));
+
+
+ /*       if(!response_result.isEmpty()) {
+            if (response_result.equals("Login success")) {
+                return true;
+            } else if (response_result.equals("Wrong password")) {
+                return false;
+            } else
+                return false;
+        }
+        else
+            return false;*/
+    return false;
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Toast.makeText(getApplicationContext(), "Logout Complete", Toast.LENGTH_LONG).show();
     }
 }
 

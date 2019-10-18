@@ -1,5 +1,6 @@
 package ga.project0511.graduationproject;
 
+
 public class User {
     private final String id;
     private final String nickname;
@@ -13,13 +14,9 @@ public class User {
         this.phone = phone;
     }
 
-    public String getId() {
-        return this.id;
-    }
+    public String getId() { return this.id; }
 
-    public String getNickname() {
-        return this.nickname;
-    }
+    public String getNickname() { return this.nickname; }
 
     public String getEmail() {
         return this.email;
@@ -28,6 +25,7 @@ public class User {
     public String getPhone() {
         return this.phone;
     }
+
 
 
 

@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     IMyService iMyService;
 
+    User user;
+
 
     @Override
     protected void onStop() {

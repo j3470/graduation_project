@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,9 @@ public class MainMenu extends AppCompatActivity {
     public static final int REQUEST_CODE_IMAGESEARCH = 104;
     public static final int REQUEST_CODE_MENUGWANLI = 105;
 
+    public static final String KEY_USER_DATA = "user";
+
+    TextView menu_name_main;
     Button main_button_logout;
     Button main_button_menu_dict;
     Button main_button_menu_recommend;
@@ -27,11 +31,15 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        menu_name_main = findViewById(R.id.menu_name_main);
         main_button_logout = findViewById(R.id.main_button_logout);
         main_button_menu_dict = findViewById(R.id.main_button_menu_dict);
         main_button_menu_recommend = findViewById(R.id.main_button_menu_recommend);
         main_button_menu_imagesearch = findViewById(R.id.main_button_menu_imagesearch);
         main_button_menu_gwanli = findViewById(R.id.main_button_menu_gwanli);
+
+        Intent intent = getIntent();
+        processIntent(intent);
 
         Button.OnClickListener onClickListener = new Button.OnClickListener() {
             @Override
@@ -77,6 +85,15 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
+    private void processIntent(Intent intent){
+        if(intent!=null) {
+            Bundle bundle = intent.getExtras();
+            User userInfo = bundle.getParcelable(KEY_USER_DATA);
+            if(intent!=null) {
+                menu_name_main.setText("환영합니다 "+userInfo.getId()+"님");
+            }
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

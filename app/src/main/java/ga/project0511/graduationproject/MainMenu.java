@@ -25,6 +25,7 @@ public class MainMenu extends AppCompatActivity {
     Button main_button_menu_imagesearch;
     Button main_button_menu_gwanli;
 
+    User login_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,19 @@ public class MainMenu extends AppCompatActivity {
         main_button_menu_imagesearch = findViewById(R.id.main_button_menu_imagesearch);
         main_button_menu_gwanli = findViewById(R.id.main_button_menu_gwanli);
 
+
         Intent intent = getIntent();
-        processIntent(intent);
+
+        //전달 된 인텐트에서 회원 정보 가지고 오기
+        login_user = User.getUserInfoFromIntent(intent);
+
+        //화면 좌상단에 환영 문구 텍스트 띄우기
+        if(login_user.getId() != null) {
+            menu_name_main.setText("환영합니다 "+login_user.getId()+"님");
+        }
+        else {
+            menu_name_main.setText("환영합니다 no User님");
+        }
 
         Button.OnClickListener onClickListener = new Button.OnClickListener() {
             @Override
@@ -51,25 +63,32 @@ public class MainMenu extends AppCompatActivity {
                         setResult(RESULT_OK, intent_logout);
                         finish();
                         break;
+
                         //식물 정보 사전
                     case R.id.main_button_menu_dict:
                         Intent intent_dict = new Intent(MainMenu.this, Dictionary.class);
+                        intent_dict.putExtra(KEY_USER_DATA, login_user);
                         startActivityForResult(intent_dict, REQUEST_CODE_DICT);
-                        //startActivity(intent_dict);
                         break;
+
                         //선호 작물 추천
                     case R.id.main_button_menu_recommend:
                         Intent intent_recommend = new Intent(MainMenu.this, plant_recommend.class);
+                        intent_recommend.putExtra(KEY_USER_DATA, login_user);
                         startActivityForResult(intent_recommend, REQUEST_CODE_RECOMMEND);
                         break;
+
                         //식물 이미지 검색
                     case R.id.main_button_menu_imagesearch:
                         Intent intent_imagesearch = new Intent(MainMenu.this, ImageSearch.class);
+                        intent_imagesearch.putExtra(KEY_USER_DATA, login_user);
                         startActivityForResult(intent_imagesearch, REQUEST_CODE_IMAGESEARCH);
                         break;
+
                         //작물 관리
                     case R.id.main_button_menu_gwanli:
                         Intent intent_gwanli = new Intent(MainMenu.this, listing_plants.class);
+                        intent_gwanli.putExtra(KEY_USER_DATA, login_user);
                         startActivityForResult(intent_gwanli, REQUEST_CODE_MENUGWANLI);
                         break;
                 }
@@ -85,15 +104,6 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
-    private void processIntent(Intent intent){
-        if(intent!=null) {
-            Bundle bundle = intent.getExtras();
-            User userInfo = bundle.getParcelable(KEY_USER_DATA);
-            if(intent!=null) {
-                menu_name_main.setText("환영합니다 "+userInfo.getId()+"님");
-            }
-        }
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

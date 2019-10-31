@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-31:12
-INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-31:12
-INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-31:12
-INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-31:12
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-32:12
 MERGED from [com.rengwuxian.materialedittext:library:2.1.4] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\c25325f75b8aa0a63f372907596d6bc3\jetified-library-2.1.4\AndroidManifest.xml:2:1-10:12
 MERGED from [com.github.javiersantos:MaterialStyledDialogs:2.1] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\aae93dd4cf54d0af992594de1deb08fc\jetified-MaterialStyledDialogs-2.1\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.material:material:1.0.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\cb634fe4b4d1fdfcd5255e485d30a0c1\material-1.0.0\AndroidManifest.xml:17:1-24:12
@@ -42,25 +42,25 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Administrator\.g
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\420f294924962582b4c42c622af43461\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\66e997bde0b6ece28f7fd36f5f4a1584\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\8787729f29cf7add1bc29c81caccddfd\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
-INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-31:12
-INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-31:12
-INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-31:12
+INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-32:12
 	package
 		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:3:5-47
 		INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-31:12
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-32:12
 		INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-31:12
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:1-32:12
 		INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:5:5-27:19
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:5:5-28:19
 MERGED from [com.google.android.material:material:1.0.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\cb634fe4b4d1fdfcd5255e485d30a0c1\material-1.0.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.0.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\cb634fe4b4d1fdfcd5255e485d30a0c1\material-1.0.0\AndroidManifest.xml:22:5-20
 MERGED from [com.afollestad.material-dialogs:core:0.9.0.2] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\eb19f066788c203ce6b6be85f65f0fb7\jetified-core-0.9.0.2\AndroidManifest.xml:13:5-20
@@ -87,52 +87,56 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Ad
 		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:11:9-40
 	android:usesCleartextTraffic
 		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:12:9-44
-activity#ga.project0511.graduationproject.listing_plants
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:13:9-52
+activity#ga.project0511.graduationproject.AddMyActivity
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:13:9-60
 	android:name
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:13:19-49
-activity#ga.project0511.graduationproject.GardeningGuide
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:13:19-48
+activity#ga.project0511.graduationproject.listing_plants
 ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:14:9-52
 	android:name
 		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:14:19-49
+activity#ga.project0511.graduationproject.GardeningGuide
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:15:9-52
+	android:name
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:15:19-49
 activity#ga.project0511.graduationproject.SearchResult
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:15:9-50
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:16:9-50
 	android:name
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:15:19-47
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:16:19-47
 activity#ga.project0511.graduationproject.ImageSearch
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:16:9-49
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:17:9-49
 	android:name
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:16:19-46
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:17:19-46
 activity#ga.project0511.graduationproject.plant_recommend
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:17:9-53
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:18:9-53
 	android:name
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:17:19-50
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:18:19-50
 activity#ga.project0511.graduationproject.Dictionary
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:18:9-48
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:19:9-48
 	android:name
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:18:19-45
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:19:19-45
 activity#ga.project0511.graduationproject.MainMenu
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:19:9-56
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:20:9-46
 	android:name
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:19:19-43
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:20:19-43
 activity#ga.project0511.graduationproject.MainActivity
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:20:9-26:20
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:21:9-27:20
 	android:name
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:20:19-47
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:21:19-47
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:21:13-25:29
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:22:13-26:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:22:17-69
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:23:17-69
 	android:name
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:22:25-66
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:23:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:24:17-77
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:25:17-77
 	android:name
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:24:27-74
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:25:27-74
 uses-permission#android.permission.INTERNET
-ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:29:5-67
+ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:30:5-67
 	android:name
-		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:29:22-64
+		ADDED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml:30:22-64
 uses-sdk
 INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Administrator\Desktop\Graduationproject3\app\src\main\AndroidManifest.xml

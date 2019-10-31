@@ -17,4 +17,32 @@ public interface IMyService {
     @FormUrlEncoded
     Observable<String> loginUser(@Field("id") String id,
                                     @Field("password") String password);
+
+    @POST("/api/activities/register")
+    @FormUrlEncoded
+    Observable<String> registerActivity(@Field("name_activity") String name_activity,
+                                        @Field("created_at") String createdAt,
+                                        @Field("ended_at") String endedAt,
+                                        @Field("name_plant") String name_plant,
+                                        @Field("id_manager") String id_manager,
+                                        @Field("id_participants") String[] id_participants,
+                                        @Field("image") String imgPath,
+                                        @Field("sensor") String sensorPath);
+
+    @POST("/api/activities/search")
+    @FormUrlEncoded
+    Observable<String> searchAllActivities(@Field("id") String id);
+
+    @POST("/api/activities/update")
+    @FormUrlEncoded
+    Observable<String> updateActivity(@Field("name_activity") String name_activity,
+                                      @Field("created_at") String createdAt,
+                                      @Field("ended_at") String endedAt,
+                                      @Field("name_plant") String name_plant,
+                                      @Field("id_manager") String id_manager,
+                                      @Field("id_participants") String[] id_participants,
+                                      @Field("image") String imgPath,
+                                      @Field("sensor") String sensorPath);
+
+
 }

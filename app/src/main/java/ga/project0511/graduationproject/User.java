@@ -1,13 +1,24 @@
 package ga.project0511.graduationproject;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+
 public class User implements Parcelable {
 
-    private final String id;
-    private final String nickname;
-    private final String email;
+    public static final String KEY_USER_DATA = "user";
+
+    private String id;
+    private String nickname;
+    private String email;
+
+    public User() {
+        id = null;
+        nickname = null;
+        email = null;
+    }
 
     public User(String id, String nickname, String email) {
         this.id = id;
@@ -47,5 +58,14 @@ public class User implements Parcelable {
         dest.writeString(id);
         dest.writeString(nickname);
         dest.writeString(email);
+    }
+
+    public static User getUserInfoFromIntent(Intent intent){
+        if(intent!=null){
+            Bundle bundle = intent.getExtras();
+            return bundle.getParcelable(KEY_USER_DATA);
+        }
+        else
+            return new User();
     }
 }

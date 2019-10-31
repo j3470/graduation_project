@@ -1205,6 +1205,9 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id addActivity_add
+id addActivity_back
+id addActivity_name
 id alertTitle
 id all
 id always
@@ -1520,6 +1523,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_add_my
 layout activity_dictionary
 layout activity_gardening_guide
 layout activity_image_search
@@ -1626,6 +1630,14 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string addActivity_attr_id_manager
+string addActivity_attr_id_participants
+string addActivity_attr_image
+string addActivity_attr_name_activity
+string addActivity_attr_name_plant
+string addActivity_attr_sensor
+string addActivity_button_add
+string addActivity_name
 string app_name
 string appbar_scrolling_view_behavior
 string bottom_sheet_behavior

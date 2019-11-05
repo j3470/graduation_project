@@ -21,13 +21,12 @@ public interface IMyService {
     @POST("/api/activities/register")
     @FormUrlEncoded
     Observable<String> registerActivity(@Field("name_activity") String name_activity,
+                                        @Field("name_plant") String name_plant,
                                         @Field("created_at") String createdAt,
                                         @Field("ended_at") String endedAt,
-                                        @Field("name_plant") String name_plant,
                                         @Field("id_manager") String id_manager,
-                                        @Field("id_participants") String[] id_participants,
-                                        @Field("image") String imgPath,
-                                        @Field("sensor") String sensorPath);
+                                        @Field("id_participants") String id_participants
+                                        );
 
     @POST("/api/activities/search")
     @FormUrlEncoded

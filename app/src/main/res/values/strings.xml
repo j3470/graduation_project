@@ -60,9 +60,17 @@
     <string name="addActivity_name">원예 활동 추가</string>
     <string name="addActivity_attr_name_activity">활동 이름</string>
     <string name="addActivity_attr_name_plant">식물명</string>
+    <string name="addActivity_attr_name_createdAt">시작 일시</string>
+    <string name="addActivity_attr_name_endedAt">종료 일시</string>
     <string name="addActivity_attr_id_manager">팀장</string>
     <string name="addActivity_attr_id_participants">참가자</string>
-    <string name="addActivity_attr_image">대표 사진</string>
-    <string name="addActivity_attr_sensor">환경 탐지 센서</string>
+    <string name="addActivity_attr_image">대표 사진 등록</string>
+    <string name="addActivity_attr_sensor">환경 탐지 센서 등록</string>
     <string name="addActivity_button_add">등록</string>
+    <string name="addActivity_example_name_activity">예) MyActivity</string>
+    <string name="addActivity_example_name_plant">예) Sunflower</string>
+    <string name="addActivity_example_createdAt">예) 2019.01.01</string>
+    <string name="addActivity_example_id_manager">예) manager</string>
+    <string name="addActivity_example_id_participant">예) participant</string>
+
 </resources>

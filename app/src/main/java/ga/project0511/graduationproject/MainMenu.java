@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import ga.project0511.graduationproject.datatype.User;
+
 public class MainMenu extends AppCompatActivity {
 
     public static final int REQUEST_CODE_DICT = 102;

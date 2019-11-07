@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import ga.project0511.graduationproject.Retrofit.IMyService;
 import ga.project0511.graduationproject.Retrofit.RetrofitClient;
+import ga.project0511.graduationproject.datatype.User;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -41,7 +42,11 @@ public class AddMyActivity extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     IMyService imyService;
 
-
+    @Override
+    protected void onStop() {
+        compositeDisposable.clear();
+        super.onStop();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +169,6 @@ public class AddMyActivity extends AppCompatActivity {
                         if(success) {
                             JSONObject jsonObject_data = jsonObject.getJSONObject("data");
 
-                            //성공 여부 확인 코드. db에 전달된 삽입된 값 출력
                             String activity_name = jsonObject_data.getString("name_activity");
                             String plant_name = jsonObject_data.getString("name_plant");
                             String createdAt = jsonObject_data.getString("created_at");

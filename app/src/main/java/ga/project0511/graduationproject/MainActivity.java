@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import ga.project0511.graduationproject.Retrofit.IMyService;
 import ga.project0511.graduationproject.Retrofit.RetrofitClient;
+import ga.project0511.graduationproject.datatype.User;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;

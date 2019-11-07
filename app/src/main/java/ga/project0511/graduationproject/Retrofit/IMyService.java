@@ -28,9 +28,9 @@ public interface IMyService {
                                         @Field("id_participants") String id_participants
                                         );
 
-    @POST("/api/activities/search")
+    @POST("/api/activities/searchall")
     @FormUrlEncoded
-    Observable<String> searchAllActivities(@Field("id") String id);
+    Observable<String> searchAllActivities(@Field("id_manager") String id);
 
     @POST("/api/activities/update")
     @FormUrlEncoded

@@ -22,18 +22,26 @@
             android:layout_height="wrap_content">
 
             <!-- 기본 텍스트 뷰 및 버튼 -->
-<!--
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/edt_id"
-                android:hint="ID"
-                android:inputType="textWebEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:met_textColorHint="@color/myTextColor"
-                app:met_textColor="@color/myTextColor"
-                app:met_primaryColor="@color/myTextColor"
-                app:met_iconPadding="0dp"
-                app:met_iconRight="@drawable/ic_person"/> -->
+
+            <ImageView
+                android:id="@+id/addActivity_back"
+                android:layout_width="40dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_revert" />
+
+            <ImageView
+                android:id="@+id/addActivity_imageView_repImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="604dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_gallery" />
 
             <EditText
                 android:id="@+id/addActivity_editText_activityName"
@@ -48,8 +56,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- 활동 이름 -->
-
             <EditText
                 android:id="@+id/addActivity_editText_plantName"
                 android:layout_width="250dp"
@@ -63,7 +69,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <EditText
                 android:id="@+id/addActivity_editText_createdAt"
                 android:layout_width="250dp"
@@ -76,8 +81,6 @@
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- 식물명 -->
 
             <EditText
                 android:id="@+id/addActivity_editText_manager"
@@ -105,17 +108,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- 활동 시작 일시 -->
-
-            <ImageView
-                android:id="@+id/addActivity_back"
-                android:layout_width="40dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_revert" />
+            <EditText
+                android:id="@+id/addActivity_editText_sensor"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="817dp"
+                android:ems="10"
+                android:hint="@string/addActivity_example_sensor"
+                android:inputType="textPersonName"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/addActivity_name"
@@ -127,8 +131,6 @@
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- 매니저 -->
 
             <TextView
                 android:id="@+id/addActivity_textView_activityName"
@@ -152,8 +154,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- 참가자 -->
-
             <TextView
                 android:id="@+id/addActivity_textView_createdAt"
                 android:layout_width="wrap_content"
@@ -176,9 +176,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <!-- 대표 사진 -->
-
             <TextView
                 android:id="@+id/addActivity_textView_participants"
                 android:layout_width="wrap_content"
@@ -189,8 +186,6 @@
                 android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- 대표 센서 -->
 
             <TextView
                 android:id="@+id/addActivity_textView_image"
@@ -203,16 +198,44 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- 등록 버튼 -->
-
             <TextView
                 android:id="@+id/addActivity_textView_sensor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="610dp"
+                android:layout_marginTop="750dp"
                 android:text="@string/addActivity_attr_sensor"
                 android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/addActivity_button_getFromAlbum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="556dp"
+                android:text="@string/addActivity_button_getFromAlbum"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/addActivity_button_getByCamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="162dp"
+                android:layout_marginTop="556dp"
+                android:text="@string/addActivity_button_getByCamera"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/addActivity_button_getSensor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="776dp"
+                android:text="@string/addActivity_button_getSensor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -220,13 +243,15 @@
                 android:id="@+id/addActivity_add"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="670dp"
+                android:layout_marginTop="880dp"
                 android:text="@string/addActivity_button_add"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintHorizontal_bias="0.500"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

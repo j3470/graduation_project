@@ -1311,7 +1311,14 @@ id list_item
 id list_reviews
 id listing_plants_add
 id listing_plants_back
-id listing_plants_content
+id listing_plants_contents
+id listing_plants_contents_layout
+id listing_plants_listView
+id listing_plants_listView_activityName
+id listing_plants_listView_createdAt
+id listing_plants_listView_image
+id listing_plants_listView_layout
+id listing_plants_listView_managerID
 id listing_plants_name
 id main_button_logout
 id main_button_menu_dict
@@ -1540,6 +1547,7 @@ layout activity_dictionary
 layout activity_gardening_guide
 layout activity_image_search
 layout activity_listing_plants
+layout activity_listing_plants_listview
 layout activity_main
 layout activity_main_menu
 layout activity_plant_recommend

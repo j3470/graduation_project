@@ -1,5 +1,6 @@
 package ga.project0511.graduationproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -35,14 +36,14 @@ public class listing_plants extends AppCompatActivity {
     public static final String KEY_USER_DATA = "user";
     public static final String KEY_ACTIVITY_DATA = "activity";
 
-    User login_user;
-    ArrayList<Gardening> activity;
+    User login_user; // 로그인 사용자 정보
+    public static ArrayList<Gardening> activity; // 사용자의 참여 활동 정보 객체 ArrayList
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     IMyService iMyService;
 
-    ListView listView;
-    GardeningAdapter gardeningAdapter;
+    ListView listView; // ArrayList를 listing 하기 위한 리스트 뷰
+    GardeningAdapter gardeningAdapter; // 리스트 뷰 어댑터
 
     @Override
     protected void onStop() {
@@ -76,6 +77,12 @@ public class listing_plants extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         gardeningAdapter.getItem(position).getActivityName(),
                         Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(listing_plants.this, ActivityInfo.class);
+                intent.putExtra(KEY_USER_DATA, login_user);
+                intent.putExtra(KEY_ACTIVITY_DATA, activity.get(position));
+                startActivityForResult(intent, REQUEST_CODE_ACTIVITY_INFO);
+
             }
         });
 
@@ -122,6 +129,15 @@ public class listing_plants extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode != Activity.RESULT_OK) {
+            Toast.makeText(getApplicationContext(), "상세 정보에서 돌아 오는 도중 오류 발생",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        if(requestCode == REQUEST_CODE_ACTIVITY_INFO) {
+
+        }
     }
 
     // DB로부터 진행 중인 모든 참여 활동 정보를 가져와 activity에 저장하는 함수
@@ -163,8 +179,8 @@ public class listing_plants extends AppCompatActivity {
                         // 리스트 뷰에 어댑터 등록
                         listView.setAdapter(gardeningAdapter);
 
-                        //Toast.makeText(getApplicationContext(), activity.get(0).getActivityName(), Toast.LENGTH_SHORT).show();
                     }
                 }));
     }
+
 }

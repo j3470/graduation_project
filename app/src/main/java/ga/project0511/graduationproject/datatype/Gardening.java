@@ -77,7 +77,7 @@ public class Gardening implements Parcelable {
         dest.writeString(participantsID);
     }
 
-    public static Gardening getUserInfoFromIntent(Intent intent){
+    public static Gardening getGardeningInfoFromIntent(Intent intent){
         if(intent!=null){
             Bundle bundle = intent.getExtras();
             return bundle.getParcelable(KEY_ACTIVITY_DATA);

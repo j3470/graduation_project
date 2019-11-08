@@ -1,7 +1,17 @@
 package ga.project0511.graduationproject;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,11 +21,21 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+
 import ga.project0511.graduationproject.Retrofit.IMyService;
 import ga.project0511.graduationproject.Retrofit.RetrofitClient;
+import ga.project0511.graduationproject.datatype.Gardening;
 import ga.project0511.graduationproject.datatype.User;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -25,7 +45,11 @@ import retrofit2.Retrofit;
 
 
 public class AddMyActivity extends AppCompatActivity {
-    public static final String KEY_USER_DATA = "user";
+
+    public static final int PICK_FROM_ALBUM = 201;
+    public static final int PICK_FROM_CAMERA = 202;
+
+    public static final String KEY_USER_DATA = "user"; //
 
     public static final String NO_PARTICIPANTS = "No participants";
     public static final String NOT_ENDED_YET = "Not ended yet";
@@ -34,13 +58,15 @@ public class AddMyActivity extends AppCompatActivity {
     User login_user;
 
     ImageView button_back;
-    Button button_add;
+    Button button_add, button_album, button_camera;
     EditText editText_activity_name, editText_plant_name, editText_createdAt,
             editText_manager_id, editText_participants_id;
 
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     IMyService imyService;
+
+    private File tempFile; // 활동 대표 사진 이미지 파일
 
     @Override
     protected void onStop() {
@@ -53,17 +79,22 @@ public class AddMyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_my);
 
-        //Init Service
+        // ted permission
+        tedPermission();
+
+        // Init Service
         Retrofit retrofitClient = RetrofitClient.getInstance();
         imyService = retrofitClient.create(IMyService.class);
 
-        //Get user infomation
+        // Get user infomation
         Intent intent = getIntent();
         login_user = User.getUserInfoFromIntent(intent);
 
-        //Init view
+        // Init view
         button_back = findViewById(R.id.addActivity_back);
         button_add = findViewById(R.id.addActivity_add);
+        button_album = findViewById(R.id.addActivity_button_getFromAlbum);
+        button_camera = findViewById(R.id.addActivity_button_getByCamera);
 
         editText_activity_name = findViewById(R.id.addActivity_editText_activityName);
         editText_plant_name = findViewById(R.id.addActivity_editText_plantName);
@@ -76,6 +107,22 @@ public class AddMyActivity extends AppCompatActivity {
         editText_manager_id.setInputType(InputType.TYPE_NULL);
         //editText_manager_id.setFocusable(false);
         //editText_manager_id.setClickable(false);
+
+        // 앨범에서 이미지 추가 버튼 리스너 등록
+        button_album.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToAlbum();
+            }
+        });
+
+        // 카메라에서 사진 촬영하기 버튼 리스너 등록
+        button_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                takePhoto();
+            }
+        });
 
         // 등록하기 버튼 리스너 등록
         button_add.setOnClickListener(new View.OnClickListener() {
@@ -136,8 +183,18 @@ public class AddMyActivity extends AppCompatActivity {
                 }
 
                 if(isNotEmpty && isFormattedData) {
+
                     insertActivityInfo(activity_name, plant_name, createdAt,
-                            manager_id, participants_id); }
+                            manager_id, participants_id);
+
+                    /*
+                    * listing_plants 엑티비티의 listview 새로 고침을 하기 위한
+                    * ArrayList에 항목 추가
+                    */
+
+                    listing_plants.activity.add(new Gardening(activity_name, createdAt, Gardening.NOT_ENDED_YET,
+                            plant_name, manager_id, participants_id));
+                }
             }
         });
 
@@ -150,8 +207,59 @@ public class AddMyActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode != Activity.RESULT_OK) {
+            Toast.makeText(this, "취소되었습니다"+requestCode, Toast.LENGTH_SHORT).show();
+
+            if(tempFile != null) {
+                if(tempFile.exists()) {
+                    if(tempFile.delete()) {
+                        //og.e(TAG, tempFile.getAbsolutePath() + "삭제 성공");
+                        tempFile = null;
+                    }
+                }
+            }
+
+            return;
+        }
+
+        if(requestCode == PICK_FROM_ALBUM) {
+            Uri photoUri = data.getData();
+
+            Cursor cursor = null;
+
+            try{ // Uri 스키마를 content:/// 에서 file:/// 로 변경
+                String[] proj = { MediaStore.Images.Media.DATA };
+
+                assert photoUri != null;
+                cursor = getContentResolver().query(photoUri, proj, null, null, null);
+
+                assert cursor != null;
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+                cursor.moveToFirst();
+
+                tempFile = new File(cursor.getString(column_index));
+                //Toast.makeText(getApplicationContext(), cursor.getString(column_index), Toast.LENGTH_SHORT).show();
+            } finally {
+                 if (cursor != null) {
+                     cursor.close();
+                 }
+            }
+
+            setImage();
+        } else if(requestCode == PICK_FROM_CAMERA) {
+
+            setImage();
+        }
+    }
+
+    // 입력 정보를 DB의 activity의 컬렉션에 추가
     public void insertActivityInfo(String activity_name, String plant_name, String createdAt,
                                       String manager_id, String participants_id) {
 
@@ -196,6 +304,98 @@ public class AddMyActivity extends AppCompatActivity {
                         }
                     }
                 }));
+    }
+    // ted permission 설정
+    private void tedPermission() {
+
+        PermissionListener permissionListener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                // 권한 요청 성공
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                // 권한 요청 실패
+
+            }
+        };
+
+        TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setRationaleMessage(getResources().getString(R.string.permission_2))
+                .setDeniedMessage(getResources().getString(R.string.permission_1))
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .check();
+    }
+
+    // 앨범에서 이미지 가져오기
+    private void goToAlbum() {
+
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        startActivityForResult(intent, PICK_FROM_ALBUM);
+    }
+
+    // 갤러리에서 받아온 이미지 넣기
+    private void setImage() {
+
+        ImageView imageView = findViewById(R.id.addActivity_imageView_repImage);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
+        Bitmap resizeBm = Bitmap.createScaledBitmap(originalBm, 120, 120,  true);
+
+        imageView.setImageBitmap(resizeBm);
+    }
+
+    // 카메라에서 이미지 가져오기
+    private void takePhoto() {
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        try {
+            tempFile = createImageFile();
+        } catch (IOException e) {
+            Toast.makeText(this, "이미지 처리 오류. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+            finish();
+            e.printStackTrace();
+        }
+
+        if(tempFile != null) {
+
+            if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+
+                Uri photoUri = FileProvider.getUriForFile(this,
+                        "{package name}.provider", tempFile);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
+                startActivityForResult(intent, PICK_FROM_CAMERA);
+
+            } else {
+                Uri photoUri = Uri.fromFile(tempFile);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(intent, PICK_FROM_CAMERA);
+            }
+        }
+    }
+
+    // 카메라에서 찍은 사진을 저장
+    private File createImageFile() throws IOException {
+
+        // Image 파일 이름 : activity_{timestamp}_
+
+        String timeStamp = new SimpleDateFormat("HHmmss").format(new Date());
+        String imageFileName = "activity_" + timeStamp + "_";
+
+        // 이미지가 저장될 폴더 이름 : activityRepImage
+        File storageDir = new File(Environment.getExternalStorageDirectory() + "/activityRepImage");
+        if(!storageDir.exists()) storageDir.mkdirs();
+
+        // 빈 파일 생성
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        return image;
     }
 
 }

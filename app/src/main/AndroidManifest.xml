@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ga.project0511.graduationproject">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddMyActivity"></activity>
+        <activity android:name=".ActivityInfo"></activity>
+        <activity android:name=".AddMyActivity" />
         <activity android:name=".listing_plants" />
         <activity android:name=".GardeningGuide" />
         <activity android:name=".SearchResult" />
@@ -24,9 +31,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- 사진 촬영을 위한 provider -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="{package name}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

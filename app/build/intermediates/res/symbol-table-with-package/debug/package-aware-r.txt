@@ -1204,14 +1204,34 @@ id action_mode_close_button
 id action_text
 id actions
 id activity_chooser_view_content
+id activity_info
+id activity_info_back
+id activity_info_layout_info
+id activity_info_layout_records
+id activity_info_layout_top
+id activity_info_menu
+id activity_info_name_activity
+id activity_info_records_listview
+id activity_info_repImg
+id activity_info_tag_createdAt
+id activity_info_tag_participants
+id activity_info_tag_participatedAt
+id activity_info_text_createdAt
+id activity_info_text_participants
+id activity_info_text_participatedAt
 id add
 id addActivity_add
 id addActivity_back
+id addActivity_button_getByCamera
+id addActivity_button_getFromAlbum
+id addActivity_button_getSensor
 id addActivity_editText_activityName
 id addActivity_editText_createdAt
 id addActivity_editText_manager
 id addActivity_editText_participants
 id addActivity_editText_plantName
+id addActivity_editText_sensor
+id addActivity_imageView_repImage
 id addActivity_name
 id addActivity_textView_activityName
 id addActivity_textView_createdAt
@@ -1542,6 +1562,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_activity_info
 layout activity_add_my
 layout activity_dictionary
 layout activity_gardening_guide
@@ -1650,6 +1671,11 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string activity_info
+string activity_info_createdAt
+string activity_info_name_activity
+string activity_info_participants
+string activity_info_participatedAt
 string addActivity_attr_id_manager
 string addActivity_attr_id_participants
 string addActivity_attr_image
@@ -1659,11 +1685,15 @@ string addActivity_attr_name_endedAt
 string addActivity_attr_name_plant
 string addActivity_attr_sensor
 string addActivity_button_add
+string addActivity_button_getByCamera
+string addActivity_button_getFromAlbum
+string addActivity_button_getSensor
 string addActivity_example_createdAt
 string addActivity_example_id_manager
 string addActivity_example_id_participant
 string addActivity_example_name_activity
 string addActivity_example_name_plant
+string addActivity_example_sensor
 string addActivity_name
 string app_name
 string appbar_scrolling_view_behavior
@@ -1699,6 +1729,8 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string permission_1
+string permission_2
 string recommend_name
 string search_menu_title
 string searchresult_name
@@ -1729,6 +1761,9 @@ string searchresult_text_soil_ph
 string searchresult_text_soil_type
 string searchresult_text_sowing_period
 string status_bar_notification_info_overflow
+string tedpermission_close
+string tedpermission_confirm
+string tedpermission_setting
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog
@@ -2103,6 +2138,7 @@ style Theme_MaterialComponents_Light_NoActionBar
 style Theme_MaterialComponents_Light_NoActionBar_Bridge
 style Theme_MaterialComponents_NoActionBar
 style Theme_MaterialComponents_NoActionBar_Bridge
+style Theme_Transparent_Permission
 style ThemeOverlay_AppCompat
 style ThemeOverlay_AppCompat_ActionBar
 style ThemeOverlay_AppCompat_Dark
@@ -2331,3 +2367,4 @@ styleable Toolbar android_gravity android_minHeight buttonGravity collapseConten
 styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_layout android_inflatedId
+xml provider_paths

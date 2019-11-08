@@ -9,6 +9,9 @@
         android:minSdkVersion="24"
         android:targetSdkVersion="29" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -22,6 +25,7 @@
         android:testOnly="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true" >
+        <activity android:name="ga.project0511.graduationproject.ActivityInfo" />
         <activity android:name="ga.project0511.graduationproject.AddMyActivity" />
         <activity android:name="ga.project0511.graduationproject.listing_plants" />
         <activity android:name="ga.project0511.graduationproject.GardeningGuide" />
@@ -36,7 +40,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- 사진 촬영을 위한 provider -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="{package name}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name="com.gun0912.tedpermission.TedPermissionActivity"
+            android:configChanges="mcc|mnc|locale|keyboard|keyboardHidden|screenLayout|fontScale|uiMode|orientation|screenSize|layoutDirection"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent.Permission" />
     </application>
 
 </manifest>

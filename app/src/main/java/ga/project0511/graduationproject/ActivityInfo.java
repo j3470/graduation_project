@@ -34,6 +34,11 @@ public class ActivityInfo extends AppCompatActivity {
 
     ListView listView;
 
+    @Override
+    protected void onStop() {
+        compositeDisposable.clear();
+        super.onStop();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

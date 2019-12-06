@@ -26,4 +26,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_revert" />
+
+    <Button
+        android:id="@+id/imagesearch_button_album"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="52dp"
+        android:text="@string/imagesearch_button_album"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_name_imagesearch" />
+
+    <Button
+        android:id="@+id/imagesearch_button_camera"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/imagesearch_button_camera"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imagesearch_button_album" />
+
+    <ImageView
+        android:id="@+id/imagesearch_repImg"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagesearch_button_album"
+        app:srcCompat="@drawable/login" />
+
+    <Button
+        android:id="@+id/imagesearch_button_search"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="@string/imagesearch_button_search"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagesearch_repImg"
+        app:layout_constraintVertical_bias="0.20" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

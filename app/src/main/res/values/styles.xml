@@ -10,4 +10,9 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <!-- App theme -->
+    <style name="EditTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/editTextColor</item>
+    </style>
+
 </resources>

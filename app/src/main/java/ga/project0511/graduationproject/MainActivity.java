@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
     User user;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     protected void onStop() {
@@ -83,17 +87,17 @@ public class MainActivity extends AppCompatActivity {
 
                 new MaterialStyledDialog.Builder(MainActivity.this)
                         .setIcon(R.drawable.ic_person)
-                        .setTitle("REGISTRATION")
-                        .setDescription("Please fill all fields")
+                        .setTitle("회원 등록")
+                        .setDescription("형식에 맞게 회원정보를 입력해주세요")
                         .setCustomView(register_layout)
-                        .setNegativeText("CANCEL")
+                        .setNegativeText("취소")
                         .onNegative(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 dialog.dismiss();
                             }
                         })
-                        .setPositiveText("REGISTER")
+                        .setPositiveText("등록")
                         .onPositive(new MaterialDialog.SingleButtonCallback(){
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which){
@@ -104,25 +108,50 @@ public class MainActivity extends AppCompatActivity {
                                 MaterialEditText edt_register_nickname = (MaterialEditText)register_layout.findViewById(R.id.edt_nickname);
                                 //MaterialEditText edt_register_phone = (MaterialEditText)register_layout.findViewById(R.id.edt_phone);
 
+                                Boolean isFormatted;
+                                String emailFormat = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$";
+                                String email = edt_register_email.getText().toString();
+
+                                // ID Validation check
                                 if(TextUtils.isEmpty(edt_register_id.getText().toString())) {
-                                    Toast.makeText(MainActivity.this, "ID cannot be null or empty", Toast.LENGTH_SHORT).show();
-                                    return;
+                                    Toast.makeText(MainActivity.this, "ID값을 입력해주세요", Toast.LENGTH_SHORT).show();
+                                    isFormatted = false;
                                 }
 
-                                if(TextUtils.isEmpty(edt_register_pwd.getText().toString())) {
-                                    Toast.makeText(MainActivity.this, "PASSWORD cannot be null or empty", Toast.LENGTH_SHORT).show();
-                                    return;
+                                else if( (edt_register_id.getText().length() < 4) | (edt_register_id.getText().length() > 12)) {
+                                    Toast.makeText(MainActivity.this, "ID의 길이는 4~12글자여야 합니다", Toast.LENGTH_SHORT).show();
+                                    isFormatted = false;
                                 }
 
-                                if(TextUtils.isEmpty(edt_register_email.getText().toString())) {
-                                    Toast.makeText(MainActivity.this, "EMAIL cannot be null or empty", Toast.LENGTH_SHORT).show();
-                                    return;
+                                // Password Validation check
+                                else if(TextUtils.isEmpty(edt_register_pwd.getText().toString())) {
+                                    Toast.makeText(MainActivity.this, "비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+                                    isFormatted = false;
                                 }
 
-                                if(TextUtils.isEmpty(edt_register_nickname.getText().toString())) {
-                                    Toast.makeText(MainActivity.this, "NICKNAME cannot be null or empty", Toast.LENGTH_SHORT).show();
-                                    return;
+                                // Email Validation check
+                                else if(TextUtils.isEmpty(edt_register_email.getText().toString())) {
+                                    Toast.makeText(MainActivity.this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show();
+                                    isFormatted = false;
                                 }
+
+                                else if(!email.matches(emailFormat)) {
+                                    Toast.makeText(MainActivity.this, "이메일 형식이 올바르지 않습니다", Toast.LENGTH_LONG).show();
+                                    isFormatted = false;
+                                }
+
+                                // Nickname Validation check
+                                else if(TextUtils.isEmpty(edt_register_nickname.getText().toString())) {
+                                    Toast.makeText(MainActivity.this, "별명을 입력해주세요", Toast.LENGTH_SHORT).show();
+                                    isFormatted = false;
+                                }
+
+                                else if( (edt_register_nickname.getText().length() < 4) | (edt_register_nickname.getText().length() > 12)) {
+                                    Toast.makeText(MainActivity.this, "별명의 길이는 4~12글자여야 합니다", Toast.LENGTH_SHORT).show();
+                                    isFormatted = false;
+                                }
+                                else
+                                    isFormatted = true;
 /*
                                 if(TextUtils.isEmpty(edt_register_phone.getText().toString())) {
                                     Toast.makeText(MainActivity.this, "PHONE cannot be null or empty", Toast.LENGTH_SHORT).show();
@@ -137,10 +166,12 @@ public class MainActivity extends AppCompatActivity {
                                         edt_register_phone.getText().toString());
 
  */
-                                registerUser(edt_register_id.getText().toString(),
-                                        edt_register_pwd.getText().toString(),
-                                        edt_register_email.getText().toString(),
-                                        edt_register_nickname.getText().toString());
+                                if(isFormatted) {
+                                    registerUser(edt_register_id.getText().toString(),
+                                            edt_register_pwd.getText().toString(),
+                                            edt_register_email.getText().toString(),
+                                            edt_register_nickname.getText().toString());
+                                }
 
                             }
                         }).show();
@@ -153,11 +184,37 @@ public class MainActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String response) {
-                        Toast.makeText(MainActivity.this, ""+response, Toast.LENGTH_SHORT).show();
-                    }
-                }));
+                            @Override
+                            public void accept(String response) {
+
+                                try {
+                                    JSONObject json = new JSONObject(response);
+
+                                    boolean success = json.getBoolean("success");
+
+                                    if(success)
+                                        Toast.makeText(getApplicationContext(), "Registration success", Toast.LENGTH_LONG).show();
+                                    else {
+                                        String err = json.getString("message");
+                                        Toast.makeText(getApplicationContext(), err, Toast.LENGTH_LONG).show();
+                                    }
+
+                                } catch(JSONException e) {
+                                    Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+
+                           }
+                        , new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                String message = throwable.getMessage();
+
+                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+                            }
+                        }));
     }
 
     private void loginUser(String id, String password)  {
@@ -166,61 +223,59 @@ public class MainActivity extends AppCompatActivity {
         if(TextUtils.isEmpty(id))
         {
             Toast.makeText(this, "ID cannot be null or empty", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if(TextUtils.isEmpty(password))
         {
             Toast.makeText(this, "Password cannot be null or empty", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        compositeDisposable.add(iMyService.loginUser(id,password)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Consumer<String>() {
-            @Override
-            public void accept(String response) throws Exception {
 
-                JSONObject jsonObject = new JSONObject(response);
-                JSONObject jsonObject_data;
+        compositeDisposable.add(iMyService.loginUser(id, password)
+             .subscribeOn(Schedulers.io())
+             .observeOn(AndroidSchedulers.mainThread())
+             .subscribe(new Consumer<String>() {
+                 @Override
+                 public void accept(String response) throws Exception {
 
-                Boolean success = jsonObject.getBoolean("success");
+                      JSONObject jsonObject = new JSONObject(response);
+                      JSONObject jsonObject_data;
 
-                if(success) {
-                    jsonObject_data = jsonObject.getJSONObject("data");
+                      Boolean success = jsonObject.getBoolean("success");
 
-                    String user = jsonObject_data.getString("id");
-                    String name = jsonObject_data.getString("name");
-                    String email = jsonObject_data.getString("email");
-                    User login_user = new User(user,name,email);
+                      if (success) {
+                                           jsonObject_data = jsonObject.getJSONObject("data");
 
-                    Intent intent = new Intent(getApplicationContext(), MainMenu.class);
-                    intent.putExtra(KEY_USER_DATA, login_user);
-                    startActivityForResult(intent, REQUEST_CODE_LOGIN);
-                }
-                else
-                    Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-            }
-        }));
+                                           String user = jsonObject_data.getString("id");
+                                           String name = jsonObject_data.getString("name");
+                                           String email = jsonObject_data.getString("email");
+                                           User login_user = new User(user, name, email);
+
+                                           Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                                           intent.putExtra(KEY_USER_DATA, login_user);
+                                           startActivityForResult(intent, REQUEST_CODE_LOGIN);
+                                       } else
+                       Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                 }},
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                Toast.makeText(getApplicationContext(), "서버 연결 실패", Toast.LENGTH_SHORT).show();
+                            }}
+                       )
+        );
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        edt_login_id.setText("");
+        edt_login_password.setText("");
         Toast.makeText(getApplicationContext(), "Logout Complete", Toast.LENGTH_LONG).show();
-    }
-
-    private void jsonParsing(String json) {
-
-        try{
-            JSONObject jsonObject = new JSONObject(json);
-
-            JSONObject jsonObject_success = jsonObject.getJSONObject("success");
-            JSONObject jsonObject_data = jsonObject.getJSONObject("data");
-        }
-        catch(JSONException e) {
-            e.printStackTrace();
-        }
     }
 }
 

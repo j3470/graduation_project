@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".plant_recommend">
+
+    <TextView
+        android:id="@+id/menu_name_imagesearchresult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/imagesearchresult_name"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imagesearchresult_back"
+        android:layout_width="40dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
+    <ImageView
+        android:id="@+id/imagesearchresult_image"
+        android:layout_width="292dp"
+        android:layout_height="356dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_name_imagesearchresult"
+        app:srcCompat="@drawable/login" />
+
+    <TextView
+        android:id="@+id/imagesearchresult_plantname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/imagesearchresult_plantname"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="@+id/imagesearchresult_probability"
+        app:layout_constraintTop_toBottomOf="@+id/imagesearchresult_image" />
+
+    <TextView
+        android:id="@+id/imagesearchresult_plantname_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="예)알로카시아"
+        android:textSize="22sp"
+        app:layout_constraintStart_toEndOf="@+id/imagesearchresult_plantname"
+        app:layout_constraintTop_toTopOf="@+id/imagesearchresult_plantname" />
+
+    <TextView
+        android:id="@+id/imagesearchresult_probability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/imagesearchresult_probability"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagesearchresult_plantname" />
+
+    <TextView
+        android:id="@+id/imagesearchresult_probability_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="36%"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/imagesearchresult_plantname_txt"
+        app:layout_constraintTop_toTopOf="@+id/imagesearchresult_probability" />
+
+    <Button
+        android:id="@+id/imagesearchresult_button_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/imagesearchresult_button_info"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagesearchresult_probability" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

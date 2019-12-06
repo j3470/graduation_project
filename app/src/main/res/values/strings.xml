@@ -15,16 +15,44 @@
 
     <!-- Dictionary Activity strings -->
     <string name="dictionary_name">식물 정보 사전</string>
-    <string name="dictionary_searchbar_hint">식물명, 예)해바라기</string>
+    <string name="dictionary_searchbar_hint">식물명, 예)장미</string>
+
+    <!-- Gardening Guide Layout strings -->
+    <string name="gardening_guide_name">원예 가이드</string>
+    <string name="gardening_guide_propagation">번식법</string>
+    <string name="gardening_guide_disease">병충해 예방</string>
+    <string name="gardening_guide_climate">적정 기온</string>
+    <string name="gardening_guide_soil">적정 토양</string>
+    <string name="gardening_guide_water">물주기</string>
+    <string name="gardening_guide_fertilizer">비료 관리</string>
+
+    <!-- Comment Layout strings -->
+    <string name="comment_name">후기 작성</string>
+    <string name="comment_author">작성자</string>
+    <string name="comment_context">작성 내용</string>
+
+    <!-- Comments list Layout strings -->
+    <string name="comments_list_name">원예 후기</string>
 
     <!-- Plant Recommend Activity strings -->
     <string name="recommend_name">선호 작물 추천</string>
 
     <!-- Image Search Activity strings -->
     <string name="imagesearch_name">식물 이미지 검색</string>
+    <string name="imagesearch_button_album">앨범에서 가져오기</string>
+    <string name="imagesearch_button_camera">사진 촬영하기</string>
+    <string name="imagesearch_button_search">검색</string>
 
-    <!-- Search Result Activity strings -->
+    <!-- Image Search Result Activity strings -->
+    <string name="imagesearchresult_name">검색 결과</string>
+    <string name="imagesearchresult_plantname">식물명 :</string>
+    <string name="imagesearchresult_probability">일치 확률 :</string>
+    <string name="imagesearchresult_button_info">식물 정보 보기</string>
+
+
+    <!-- Dictionary Search Result Activity strings -->
     <string name="searchresult_name">식물 정보</string>
+    <string name="searchresult_text_plantinfo">식물 기본정보</string>
     <string name="searchresult_text_plantname">식물명: </string>
     <string name="searchresult_text_botanical_name">학명: </string>
     <string name="searchresult_text_botanical_kingdom">계: </string>
@@ -39,10 +67,8 @@
 
     <string name="searchresult_text_requirements">원예 요구사항</string>
     <string name="searchresult_text_size">크기 </string>
-    <string name="searchresult_text_max_width">최대 넓이: </string>
-    <string name="searchresult_text_min_width">최소 넓이: </string>
-    <string name="searchresult_text_max_height">최대 길이: </string>
-    <string name="searchresult_text_min_height">최소 길이: </string>
+
+    <string name="searchresult_text_min_height">식물 크기: </string>
     <string name="searchresult_text_difficulty">난이도: </string>
     <string name="searchresult_text_max_temp">최대 온도: </string>
     <string name="searchresult_text_min_temp">최소 온도: </string>
@@ -52,10 +78,9 @@
     <string name="searchresult_text_soil_drainage">배수도: </string>
 
     <string name="searchresult_text_review">원예 후기</string>
+    <string name="searchresult_text_comment">후기 작성하기</string>
+    <string name="searchresult_text_comment_list">원예 후기 보기</string>
     <string name="searchresult_text_guide">원예 가이드 보기</string>
-
-    <!-- Gardening Guide Activity strings -->
-    <string name="gardening_guide_name">원예 가이드</string>
 
     <!-- Listing plants Activity strings -->
     <string name="listing_plants_name">내 원예 활동</string>

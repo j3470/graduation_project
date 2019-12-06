@@ -41,6 +41,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 
 
@@ -55,6 +58,9 @@ public class AddMyActivity extends AppCompatActivity {
     public static final String NOT_ENDED_YET = "Not ended yet";
     public static final String ENDED_ACTIVITY = "Activity ended";
 
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    IMyService iMyService;
+
     User login_user;
 
     ImageView button_back;
@@ -62,11 +68,33 @@ public class AddMyActivity extends AppCompatActivity {
     EditText editText_activity_name, editText_plant_name, editText_createdAt,
             editText_manager_id, editText_participants_id;
 
+    // 활동 대표 사진 이미지 파일 관련 객체
+    private File tempFile;
+    private MultipartBody.Part file;
+    private String imgPath_server;
 
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
-    IMyService imyService;
+    // 활동 정보 업로드 성공 여부 & 이미지 업로드 여부 플래그
+    private boolean isUploaded;
+    private boolean isInserted;
 
-    private File tempFile; // 활동 대표 사진 이미지 파일
+
+    @Override
+    protected void onDestroy() {
+        // 활동 정보 등록 없이 액티비티 종료 시 업로드되었던 이미지 파일 삭제
+        if(!isUploaded & isInserted) {
+            compositeDisposable.add(iMyService.deleteImgFile(imgPath_server)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<String>() {
+                        @Override
+                        public void accept(String response) throws Exception {
+
+                        }
+                    })
+            );
+        }
+        super.onDestroy();
+    }
 
     @Override
     protected void onStop() {
@@ -84,11 +112,15 @@ public class AddMyActivity extends AppCompatActivity {
 
         // Init Service
         Retrofit retrofitClient = RetrofitClient.getInstance();
-        imyService = retrofitClient.create(IMyService.class);
+        iMyService = retrofitClient.create(IMyService.class);
 
         // Get user infomation
         Intent intent = getIntent();
         login_user = User.getUserInfoFromIntent(intent);
+
+        // Set isUploaded & isNotImageUploaded flag to false
+        isUploaded = false;
+        isInserted = false;
 
         // Init view
         button_back = findViewById(R.id.addActivity_back);
@@ -105,8 +137,6 @@ public class AddMyActivity extends AppCompatActivity {
         // 팀장 속성 EditText 수정 불가
         editText_manager_id.setText(login_user.getId());
         editText_manager_id.setInputType(InputType.TYPE_NULL);
-        //editText_manager_id.setFocusable(false);
-        //editText_manager_id.setClickable(false);
 
         // 앨범에서 이미지 추가 버튼 리스너 등록
         button_album.setOnClickListener(new View.OnClickListener() {
@@ -155,8 +185,13 @@ public class AddMyActivity extends AppCompatActivity {
                     isNotEmpty = false;
                 }
 
+                else if(imgPath_server == null) {
+                    Toast.makeText(AddMyActivity.this, "대표 이미지를 지정해주세요", Toast.LENGTH_SHORT).show();
+                    isNotEmpty = false;
+                }
+
                 else if(TextUtils.isEmpty(participants_id)) {
-                    //Toast.makeText(AddMyActivity.this, "참가자 ID를 입력하세요", Toast.LENGTH_SHORT).show();
+                    // 참가자 구현 시 이후 수정 필요
                     participants_id = NO_PARTICIPANTS;
                     isNotEmpty = true;
                 }
@@ -185,15 +220,15 @@ public class AddMyActivity extends AppCompatActivity {
                 if(isNotEmpty && isFormattedData) {
 
                     insertActivityInfo(activity_name, plant_name, createdAt,
-                            manager_id, participants_id);
+                            manager_id, participants_id, imgPath_server);
 
                     /*
-                    * listing_plants 엑티비티의 listview 새로 고침을 하기 위한
+                    * My 엑티비티의 listview 새로 고침을 하기 위한
                     * ArrayList에 항목 추가
                     */
 
                     listing_plants.activity.add(new Gardening(activity_name, createdAt, Gardening.NOT_ENDED_YET,
-                            plant_name, manager_id, participants_id));
+                            plant_name, manager_id, participants_id, imgPath_server, Gardening.NOT_DOWNLOADED_YET));
                 }
             }
         });
@@ -214,7 +249,7 @@ public class AddMyActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(resultCode != Activity.RESULT_OK) {
-            Toast.makeText(this, "취소되었습니다"+requestCode, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "취소되었습니다", Toast.LENGTH_SHORT).show();
 
             if(tempFile != null) {
                 if(tempFile.exists()) {
@@ -253,18 +288,22 @@ public class AddMyActivity extends AppCompatActivity {
             }
 
             setImage();
+            uploadImageFile();
+
         } else if(requestCode == PICK_FROM_CAMERA) {
 
             setImage();
+            uploadImageFile();
         }
     }
 
     // 입력 정보를 DB의 activity의 컬렉션에 추가
     public void insertActivityInfo(String activity_name, String plant_name, String createdAt,
-                                      String manager_id, String participants_id) {
+                                      String manager_id, String participants_id, String imgPath) {
 
-        compositeDisposable.add(imyService.registerActivity(activity_name, plant_name, createdAt,
-                NOT_ENDED_YET, manager_id, participants_id)
+        // 입력 정보 업로드 스케줄러 등록
+        compositeDisposable.add(iMyService.registerActivity(activity_name, plant_name, createdAt,
+                NOT_ENDED_YET, manager_id, participants_id, imgPath)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
@@ -275,6 +314,7 @@ public class AddMyActivity extends AppCompatActivity {
                         boolean success = jsonObject.getBoolean("success");
 
                         if(success) {
+
                             JSONObject jsonObject_data = jsonObject.getJSONObject("data");
 
                             String activity_name = jsonObject_data.getString("name_activity");
@@ -283,15 +323,18 @@ public class AddMyActivity extends AppCompatActivity {
                             String endedAt = jsonObject_data.getString("ended_at");
                             String manager_id = jsonObject_data.getString("id_manager");
                             String participant_id = jsonObject_data.getString("id_participants");
+                            String imgPath_server = jsonObject_data.getString("imgPath");
 
                             Toast.makeText(AddMyActivity.this, activity_name + "\n"
                                     + plant_name + "\n"
                                     + createdAt + "\n"
                                     + endedAt + "\n"
                                     + manager_id + "\n"
-                                    + participant_id, Toast.LENGTH_SHORT).show();
+                                    + participant_id + "\n"
+                                    + imgPath_server, Toast.LENGTH_SHORT).show();
 
                             //삽입 후 활동 추가 화면 종료
+                            isUploaded = true;
                             Intent intent = new Intent();
                             setResult(RESULT_OK, intent);
                             finish();
@@ -380,7 +423,7 @@ public class AddMyActivity extends AppCompatActivity {
         }
     }
 
-    // 카메라에서 찍은 사진을 저장
+    // 카메라에서 찍은 사진을 저장할 파일 생성
     private File createImageFile() throws IOException {
 
         // Image 파일 이름 : activity_{timestamp}_
@@ -397,5 +440,60 @@ public class AddMyActivity extends AppCompatActivity {
 
         return image;
     }
+
+    private void uploadImageFile() {
+
+        // 다른 이미지로 바꿔 업로드 할 경우 기존에 업로드되었던 파일 삭제 요청
+        if(imgPath_server != null) {
+            compositeDisposable.add(iMyService.deleteImgFile(imgPath_server)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<String>() {
+                        @Override
+                        public void accept(String response) throws Exception {
+
+                        }
+                    })
+            );
+        }
+
+        if(tempFile != null) {
+            // 파일과 이미지 타입을 갖고 request body 객체 생성
+            RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), tempFile);
+
+            // request body와 파일 이름, part 이름을 갖고 MultipartBody.part 객체 생성
+            MultipartBody.Part part = MultipartBody.Part.createFormData("image", tempFile.getName(), fileReqBody);
+
+            // 부연 설명 텍스트와 텍스트 타입을 갖고 request body 객체 생성
+            RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "activity representation image");
+
+            // 이미지 업로드 요청 스케줄러 등록
+            compositeDisposable.add(iMyService.uploadImage(part, description)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<String>() {
+                        @Override
+                        public void accept(String response) throws Exception {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            boolean success = jsonObject.getBoolean("success");
+
+                            if (success) {
+                                //Toast.makeText(getApplicationContext(), "이미지 업로드 성공", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(), imgPath_server, Toast.LENGTH_SHORT).show();
+
+                                JSONObject jsonObject_data = jsonObject.getJSONObject("data");
+                                imgPath_server = jsonObject_data.getString("path");
+                                isInserted = true;
+
+                            }
+                            else
+                                Toast.makeText(getApplicationContext(), "이미지 업로드 실패", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }));
+        }
+    }
+
 
 }

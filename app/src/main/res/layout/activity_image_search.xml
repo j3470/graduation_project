@@ -57,7 +57,7 @@
         app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagesearch_button_album"
-        app:srcCompat="@drawable/login" />
+        app:srcCompat="@drawable/searchplant" />
 
     <Button
         android:id="@+id/imagesearch_button_search"

@@ -1199,6 +1199,7 @@ drawable rep_narcissus
 drawable rep_pilea
 drawable rep_rose
 drawable rose
+drawable searchplant
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT

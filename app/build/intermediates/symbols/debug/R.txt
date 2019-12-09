@@ -1198,8 +1198,9 @@ int drawable rep_narcissus 0x7f07009c
 int drawable rep_pilea 0x7f07009d
 int drawable rep_rose 0x7f07009e
 int drawable rose 0x7f07009f
-int drawable tooltip_frame_dark 0x7f0700a0
-int drawable tooltip_frame_light 0x7f0700a1
+int drawable searchplant 0x7f0700a0
+int drawable tooltip_frame_dark 0x7f0700a1
+int drawable tooltip_frame_light 0x7f0700a2
 int id ALT 0x7f080000
 int id CTRL 0x7f080001
 int id FUNCTION 0x7f080002

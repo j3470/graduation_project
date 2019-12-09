@@ -3,9 +3,11 @@ package ga.project0511.graduationproject;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
@@ -28,7 +30,13 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import ga.project0511.graduationproject.Retrofit.IMyService;
 import ga.project0511.graduationproject.Retrofit.RetrofitClient;
@@ -46,6 +54,7 @@ public class ImageSearch extends AppCompatActivity {
 
     public static final int PICK_FROM_ALBUM = 201;
     public static final int PICK_FROM_CAMERA = 202;
+    public static final int REQUEST_CODE_RESULT = 203;
 
     User login_user;
 
@@ -55,12 +64,11 @@ public class ImageSearch extends AppCompatActivity {
 
     // 활동 대표 사진 이미지 파일 관련 객체
     private File tempFile;
+    private File tempFile2;
     private MultipartBody.Part file;
-    private String imgPath_server;
 
-    // 활동 정보 업로드 성공 여부 & 이미지 업로드 여부 플래그
-    private boolean isUploaded;
-    private boolean isInserted;
+    // View
+    private ImageView repImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +82,11 @@ public class ImageSearch extends AppCompatActivity {
         Retrofit retrofitClient = RetrofitClient.getInstance();
         iMyService = retrofitClient.create(IMyService.class);
 
+        Intent intent = getIntent();
+        login_user = User.getUserInfoFromIntent(intent);
+
         // view init
+        repImg = (ImageView)findViewById(R.id.imagesearch_repImg);
         ImageView button_back = findViewById(R.id.imagesearch_back);
         Button button_album = findViewById(R.id.imagesearch_button_album);
         Button button_camera = findViewById(R.id.imagesearch_button_camera);
@@ -108,6 +120,7 @@ public class ImageSearch extends AppCompatActivity {
             }
         });
 
+        // 검색 버튼 리스너 등록
         button_search.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,12 +138,25 @@ public class ImageSearch extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(resultCode != Activity.RESULT_OK) {
+        if((resultCode == Activity.RESULT_OK) && (requestCode == REQUEST_CODE_RESULT)) {
+
+            Resources res = getResources();
+            BitmapDrawable bitmap = (BitmapDrawable)res.getDrawable(R.drawable.searchplant, null);
+            repImg.setImageDrawable(bitmap);
+
+            tempFile = null;
+        }
+
+
+        if((resultCode != Activity.RESULT_OK) && (requestCode == PICK_FROM_CAMERA )) {
 
             if(tempFile != null) {
                 if(tempFile.exists()) {
                     if(tempFile.delete()) {
-                        tempFile = null;
+                        if(tempFile2 != null)
+                            tempFile = tempFile2;
+                        else
+                            tempFile = null;
                     }
                 }
             }
@@ -138,7 +164,7 @@ public class ImageSearch extends AppCompatActivity {
             return;
         }
 
-        if(requestCode == PICK_FROM_ALBUM) {
+        if((resultCode == Activity.RESULT_OK) && (requestCode == PICK_FROM_ALBUM)) {
             Uri photoUri = data.getData();
 
             Cursor cursor = null;
@@ -163,17 +189,18 @@ public class ImageSearch extends AppCompatActivity {
             }
 
             setImage();
-            //uploadImageFile();
-        } else if( requestCode == PICK_FROM_CAMERA) {
+
+        } else if((resultCode == Activity.RESULT_OK) && (requestCode == PICK_FROM_CAMERA)) {
+
+            if(tempFile2 != null)
+                if(tempFile2.exists())
+                    tempFile2 = null;
 
             setImage();
-            //uploadImageFile();
-
         }
 
 
     }
-
 
     // ted permission 설정
     private void tedPermission() {
@@ -213,7 +240,7 @@ public class ImageSearch extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.imagesearch_repImg);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
+        options.inSampleSize = 4;
         Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
         Bitmap resizeBm = Bitmap.createScaledBitmap(originalBm, 300, 400,  true);
 
@@ -226,7 +253,14 @@ public class ImageSearch extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         try {
+
+            if(tempFile != null) {
+                if(tempFile.exists())
+                    tempFile2 = tempFile;
+            }
+
             tempFile = createImageFile();
+
         } catch (IOException e) {
             Toast.makeText(this, "이미지 처리 오류. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
             finish();
@@ -271,7 +305,7 @@ public class ImageSearch extends AppCompatActivity {
     private void requestSearch() {
 
         if(tempFile == null) {
-            return;
+
         }
         else {
             // 파일과 이미지 타입을 갖고 request body 객체 생성
@@ -296,8 +330,56 @@ public class ImageSearch extends AppCompatActivity {
                             boolean success = jsonObject.getBoolean("success");
 
                             if (success) {
-                                Toast.makeText(getApplicationContext(), "검색 성공", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(), "검색 성공", Toast.LENGTH_SHORT).show();
+                                JSONObject result = jsonObject.getJSONObject("data");
+                                JSONObject predictions = result.getJSONObject("predictions");
 
+
+                                HashMap<String, Double> values = new HashMap<String, Double>();
+
+                                double adiantum = predictions.getDouble("Adiantum");
+                                double agave = predictions.getDouble("Agave attenuata");
+                                double alocasia = predictions.getDouble("Alocasia macrorrhizos");
+                                double benjamina = predictions.getDouble("Ficus benjamina");
+                                double helix = predictions.getDouble("Hedra helix");
+                                double lavandula = predictions.getDouble("Lavandula");
+                                double narcissus = predictions.getDouble("Narcissus");
+                                double pelagonium = predictions.getDouble("Pelargonium inquinans");
+                                double pilea = predictions.getDouble("Pilea peperomioides");
+                                double rosa = predictions.getDouble("Rosa");
+
+                                values.put("alocasia", alocasia);
+                                values.put("agave", agave);
+                                values.put("adiantum", adiantum);
+                                values.put("benjamina", benjamina);
+                                values.put("avandula", lavandula);
+                                values.put("narcissus", narcissus);
+                                values.put("pilea", pilea);
+                                values.put("rose", rosa);
+                                values.put("geranium", pelagonium);
+                                values.put("ivy", helix);
+
+                                List<HashMap.Entry<String, Double>> list = new LinkedList<>(values.entrySet());
+
+                                Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
+                                    @Override
+                                    public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                                        int comparison = (int)((o1.getValue() - o2.getValue()) * -1);
+                                        return comparison == 0 ? o1.getKey().compareTo(o2.getKey()) : comparison;
+                                    }
+                                });
+
+                                HashMap.Entry<String, Double> entry = list.get(0);
+
+                                String plantName = entry.getKey();
+                                Double prediction = entry.getValue();
+
+                                Intent intent = new Intent(ImageSearch.this, image_search_result.class);
+                                intent.putExtra("plantName", plantName);
+                                intent.putExtra("prediction", prediction);
+                                intent.putExtra(User.KEY_USER_DATA, login_user);
+
+                                startActivityForResult(intent, REQUEST_CODE_RESULT);
 
                             }
                             else

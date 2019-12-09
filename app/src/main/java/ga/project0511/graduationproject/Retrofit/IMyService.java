@@ -71,6 +71,10 @@ public interface IMyService {
     @FormUrlEncoded
     Observable<ResponseBody> downloadImage(@Field("path") String filePath);
 
+    @POST("/api/plants/search")
+    @FormUrlEncoded
+    Observable<String> searchPlant(@Field("name") String plantName);
+
     @POST("/api/plants/index")
     @FormUrlEncoded
     Observable<String> searchPlantInform(@Field("noentry") String noentry);

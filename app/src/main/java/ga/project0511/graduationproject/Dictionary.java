@@ -41,6 +41,7 @@ public class Dictionary extends AppCompatActivity {
 
     public static final int REQUEST_CODE_SEARCH_PLANT = 301;
     public static final int REQUEST_CODE_INFORM_PLANT = 302;
+    public static final int TEST = 303;
 
     User login_user;
     ArrayList<Plant> plantInform;
